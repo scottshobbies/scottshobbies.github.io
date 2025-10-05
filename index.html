@@ -3,9 +3,103 @@
 <head>
   <meta charset="UTF-8">
   <title>Scott's Hobbies</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    .main-tabs, .sub-tabs {
+      display: flex;
+      margin-bottom: 10px;
+    }
+    .tab {
+      padding: 10px 20px;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      margin-right: 5px;
+      cursor: pointer;
+    }
+    .tab.active {
+      background-color: white;
+      font-weight: bold;
+    }
+    .content {
+      border: 1px solid #ccc;
+      padding: 20px;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to Scott's Hobbies</h1>
-  <p>This is a simple website. More coming soon!</p>
+
+  <h1>Scott's Hobbies</h1>
+
+  <!-- Main Tabs -->
+  <div class="main-tabs">
+    <div class="tab active" onclick="showMainTab('home')">Home</div>
+    <div class="tab" onclick="showMainTab('flying')">Flying</div>
+    <div class="tab" onclick="showMainTab('ems')">EMS</div>
+  </div>
+
+  <!-- Sub Tabs -->
+  <div id="home-subtabs" class="sub-tabs">
+    <div class="tab active" onclick="showContent('home-welcome')">Welcome</div>
+    <div class="tab" onclick="showContent('home-news')">News</div>
+  </div>
+
+  <div id="flying-subtabs" class="sub-tabs hidden">
+    <div class="tab active" onclick="showContent('flying-intro')">Intro to Flying</div>
+    <div class="tab" onclick="showContent('flying-gear')">Gear</div>
+  </div>
+
+  <div id="ems-subtabs" class="sub-tabs hidden">
+    <div class="tab active" onclick="showContent('ems-overview')">Overview</div>
+    <div class="tab" onclick="showContent('ems-training')">Training</div>
+  </div>
+
+  <!-- Content Sections -->
+  <div class="content" id="home-welcome">Welcome to the Home tab!</div>
+  <div class="content hidden" id="home-news">Latest updates and news.</div>
+
+  <div class="content hidden" id="flying-intro">Flying is a passion. Here's how I got started.</div>
+  <div class="content hidden" id="flying-gear">These are the tools and gear I use.</div>
+
+  <div class="content hidden" id="ems-overview">EMS work overview and stories.</div>
+  <div class="content hidden" id="ems-training">Training and certifications in EMS.</div>
+
+  <script>
+    function showMainTab(tabId) {
+      // Hide all sub-tabs
+      document.querySelectorAll('.sub-tabs').forEach(el => el.classList.add('hidden'));
+      // Show selected sub-tab group
+      document.getElementById(tabId + '-subtabs').classList.remove('hidden');
+
+      // Hide all content
+      document.querySelectorAll('.content').forEach(el => el.classList.add('hidden'));
+
+      // Reset main tab styles
+      document.querySelectorAll('.main-tabs .tab').forEach(el => el.classList.remove('active'));
+      document.querySelector(`.main-tabs .tab[onclick="showMainTab('${tabId}')"]`).classList.add('active');
+
+      // Show first sub-tab content
+      const firstSubTab = document.querySelector(`#${tabId}-subtabs .tab`);
+      const firstContentId = firstSubTab.getAttribute('onclick').match(/'([^']+)'/)[1];
+      showContent(firstContentId);
+    }
+
+    function showContent(contentId) {
+      // Hide all content
+      document.querySelectorAll('.content').forEach(el => el.classList.add('hidden'));
+      // Show selected content
+      document.getElementById(contentId).classList.remove('hidden');
+
+      // Reset sub-tab styles
+      document.querySelectorAll('.sub-tabs .tab').forEach(el => el.classList.remove('active'));
+      document.querySelector(`.sub-tabs .tab[onclick="showContent('${contentId}')"]`).classList.add('active');
+    }
+  </script>
+
 </body>
 </html>

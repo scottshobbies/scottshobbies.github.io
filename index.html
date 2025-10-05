@@ -2,70 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Scott Walters</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-    }
-    .tabs {
-      display: flex;
-      cursor: pointer;
-      margin-bottom: 20px;
-    }
-    .tab {
-      padding: 10px 20px;
-      border: 1px solid #ccc;
-      border-bottom: none;
-      background-color: #f1f1f1;
-      margin-right: 5px;
-    }
-    .tab.active {
-      background-color: white;
-      font-weight: bold;
-    }
-    .tab-content {
-      border: 1px solid #ccc;
-      padding: 20px;
-      display: none;
-    }
-    .tab-content.active {
-      display: block;
-    }
-  </style>
+  <title>Scott's Hobbies</title>
 </head>
 <body>
-
-  <h1>Welcome to My Site</h1>
-
-  <div class="tabs">
-    <div class="tab active" onclick="showTab('home')">Home</div>
-    <div class="tab" onclick="showTab('about')">About</div>
-    <div class="tab" onclick="showTab('contact')">Contact</div>
-  </div>
-
-  <div id="home" class="tab-content active">
-    <p>This is the home page. Welcome!</p>
-  </div>
-  <div id="about" class="tab-content">
-    <p>This is the about page. Here's a bit about me...</p>
-  </div>
-  <div id="contact" class="tab-content">
-    <p>This is the contact page. Reach out to me here.</p>
-  </div>
-
-  <script>
-    function showTab(tabId) {
-      const tabs = document.querySelectorAll('.tab');
-      const contents = document.querySelectorAll('.tab-content');
-
-      tabs.forEach(tab => tab.classList.remove('active'));
-      contents.forEach(content => content.classList.remove('active'));
-
-      document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
-      document.getElementById(tabId).classList.add('active');
-    }
-  </script>
-
+  <h1>Welcome to Scott's Hobbies</h1>
+  <p>This is a simple website. More coming soon!</p>
 </body>
 </html>

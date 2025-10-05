@@ -5,36 +5,83 @@
   <title>Scott's Hobbies</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
     }
-    .main-tabs, .sub-tabs {
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 15px 30px;
+      font-size: 24px;
+    }
+
+    .main-tabs {
       display: flex;
-      margin-bottom: 10px;
+      background-color: #444;
     }
-    .tab {
-      padding: 10px 20px;
-      border: 1px solid #ccc;
-      background-color: #f1f1f1;
-      margin-right: 5px;
+
+    .main-tabs .tab {
+      padding: 12px 20px;
+      color: white;
       cursor: pointer;
+      transition: background 0.3s;
     }
-    .tab.active {
-      background-color: white;
+
+    .main-tabs .tab:hover {
+      background-color: #555;
+    }
+
+    .main-tabs .tab.active {
+      background-color: #222;
       font-weight: bold;
     }
-    .content {
-      border: 1px solid #ccc;
-      padding: 20px;
+
+    .container {
+      display: flex;
     }
-    .hidden {
+
+    .sub-tabs {
+      width: 200px;
+      background-color: #eee;
+      padding: 20px;
       display: none;
+      flex-direction: column;
+    }
+
+    .sub-tabs .tab {
+      padding: 10px;
+      margin-bottom: 5px;
+      background-color: #ddd;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .sub-tabs .tab:hover {
+      background-color: #ccc;
+    }
+
+    .sub-tabs .tab.active {
+      background-color: #bbb;
+      font-weight: bold;
+    }
+
+    .content {
+      flex: 1;
+      padding: 30px;
+      display: none;
+    }
+
+    .content.active {
+      display: block;
     }
   </style>
 </head>
 <body>
 
-  <h1>Scott's Hobbies</h1>
+  <header>Scott's Hobbies</header>
 
   <!-- Main Tabs -->
   <div class="main-tabs">
@@ -43,41 +90,42 @@
     <div class="tab" onclick="showMainTab('ems')">EMS</div>
   </div>
 
-  <!-- Sub Tabs -->
-  <div id="home-subtabs" class="sub-tabs">
-    <div class="tab active" onclick="showContent('home-welcome')">Welcome</div>
-    <div class="tab" onclick="showContent('home-news')">News</div>
+  <div class="container">
+    <!-- Sub Tabs -->
+    <div id="home-subtabs" class="sub-tabs" style="display: flex;">
+      <div class="tab active" onclick="showContent('home-welcome')">Welcome</div>
+      <div class="tab" onclick="showContent('home-news')">News</div>
+    </div>
+
+    <div id="flying-subtabs" class="sub-tabs">
+      <div class="tab active" onclick="showContent('flying-intro')">Intro to Flying</div>
+      <div class="tab" onclick="showContent('flying-gear')">Gear</div>
+    </div>
+
+    <div id="ems-subtabs" class="sub-tabs">
+      <div class="tab active" onclick="showContent('ems-overview')">Overview</div>
+      <div class="tab" onclick="showContent('ems-training')">Training</div>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="content active" id="home-welcome">Welcome to the Home tab!</div>
+    <div class="content" id="home-news">Latest updates and news.</div>
+
+    <div class="content" id="flying-intro">Flying is a passion. Here's how I got started.</div>
+    <div class="content" id="flying-gear">These are the tools and gear I use.</div>
+
+    <div class="content" id="ems-overview">EMS work overview and stories.</div>
+    <div class="content" id="ems-training">Training and certifications in EMS.</div>
   </div>
-
-  <div id="flying-subtabs" class="sub-tabs hidden">
-    <div class="tab active" onclick="showContent('flying-intro')">Intro to Flying</div>
-    <div class="tab" onclick="showContent('flying-gear')">Gear</div>
-  </div>
-
-  <div id="ems-subtabs" class="sub-tabs hidden">
-    <div class="tab active" onclick="showContent('ems-overview')">Overview</div>
-    <div class="tab" onclick="showContent('ems-training')">Training</div>
-  </div>
-
-  <!-- Content Sections -->
-  <div class="content" id="home-welcome">Welcome to the Home tab!</div>
-  <div class="content hidden" id="home-news">Latest updates and news.</div>
-
-  <div class="content hidden" id="flying-intro">Flying is a passion. Here's how I got started.</div>
-  <div class="content hidden" id="flying-gear">These are the tools and gear I use.</div>
-
-  <div class="content hidden" id="ems-overview">EMS work overview and stories.</div>
-  <div class="content hidden" id="ems-training">Training and certifications in EMS.</div>
 
   <script>
     function showMainTab(tabId) {
       // Hide all sub-tabs
-      document.querySelectorAll('.sub-tabs').forEach(el => el.classList.add('hidden'));
-      // Show selected sub-tab group
-      document.getElementById(tabId + '-subtabs').classList.remove('hidden');
+      document.querySelectorAll('.sub-tabs').forEach(el => el.style.display = 'none');
+      document.getElementById(tabId + '-subtabs').style.display = 'flex';
 
       // Hide all content
-      document.querySelectorAll('.content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
 
       // Reset main tab styles
       document.querySelectorAll('.main-tabs .tab').forEach(el => el.classList.remove('active'));
@@ -91,9 +139,8 @@
 
     function showContent(contentId) {
       // Hide all content
-      document.querySelectorAll('.content').forEach(el => el.classList.add('hidden'));
-      // Show selected content
-      document.getElementById(contentId).classList.remove('hidden');
+      document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+      document.getElementById(contentId).classList.add('active');
 
       // Reset sub-tab styles
       document.querySelectorAll('.sub-tabs .tab').forEach(el => el.classList.remove('active'));

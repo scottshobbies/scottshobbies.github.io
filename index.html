@@ -98,8 +98,8 @@
     </div>
 
     <div id="flying-subtabs" class="sub-tabs">
-      <div class="tab active" onclick="showContent('flying-intro')">Intro to Flying</div>
-      <div class="tab" onclick="showContent('flying-gear')">Gear</div>
+      <div class="tab active" onclick="showContent('flying-career')">My Career</div>
+      <div class="tab" onclick="showContent('flying-flights')">My Flights</div>
     </div>
 
     <div id="ems-subtabs" class="sub-tabs">
@@ -115,11 +115,11 @@
       <p>Picture gallery coming soon!</p>
     </div>
 
-    <div class="content" id="flying-intro">
-      <p>Flying is a passion. Here's how I got started.</p>
+    <div class="content" id="flying-career">
+      <p>This section will cover my journey and experiences as a pilot.</p>
     </div>
-    <div class="content" id="flying-gear">
-      <p>These are the tools and gear I use.</p>
+    <div class="content" id="flying-flights">
+      <p>Here I'll share stories and logs from some of my favorite flights.</p>
     </div>
 
     <div class="content" id="ems-overview">
@@ -132,29 +132,23 @@
 
   <script>
     function showMainTab(tabId) {
-      // Hide all sub-tabs
       document.querySelectorAll('.sub-tabs').forEach(el => el.style.display = 'none');
       document.getElementById(tabId + '-subtabs').style.display = 'flex';
 
-      // Hide all content
       document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
 
-      // Reset main tab styles
       document.querySelectorAll('.main-tabs .tab').forEach(el => el.classList.remove('active'));
       document.querySelector(`.main-tabs .tab[onclick="showMainTab('${tabId}')"]`).classList.add('active');
 
-      // Show first sub-tab content
       const firstSubTab = document.querySelector(`#${tabId}-subtabs .tab`);
       const firstContentId = firstSubTab.getAttribute('onclick').match(/'([^']+)'/)[1];
       showContent(firstContentId);
     }
 
     function showContent(contentId) {
-      // Hide all content
       document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
       document.getElementById(contentId).classList.add('active');
 
-      // Reset sub-tab styles
       document.querySelectorAll('.sub-tabs .tab').forEach(el => el.classList.remove('active'));
       document.querySelector(`.sub-tabs .tab[onclick="showContent('${contentId}')"]`).classList.add('active');
     }
